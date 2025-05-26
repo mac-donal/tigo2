@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <title>Star channel</title>
     <meta name="robots" content="noindex">
@@ -14,11 +15,12 @@
         body {
             margin: 0;
             padding: 0;
+            background: black;
         }
 
         #soundBtn {
             position: fixed;
-            bottom: 20px;
+            top: 20px;
             right: 20px;
             z-index: 9999;
             background-color: #007bff;
@@ -34,12 +36,17 @@
         #soundBtn:hover {
             background-color: #0056b3;
         }
+
+        #player {
+            width: 100%;
+            height: 100vh;
+        }
     </style>
 </head>
 <body>
     <div id="player"></div>
 
-    <!-- Botón flotante -->
+    <!-- Botón flotante arriba -->
     <button id="soundBtn">🔊 Activar sonido</button>
 
     <script>
@@ -61,7 +68,7 @@
             width: "100%",
             height: "100%",
             autostart: true,
-            mute: true, // empezamos silenciado
+            mute: true,
             cast: {}
         });
 
@@ -69,7 +76,7 @@
         document.getElementById("soundBtn").addEventListener("click", function () {
             player.setMute(false);
             player.setVolume(100);
-            this.style.display = 'none'; // Oculta el botón tras activarlo
+            this.style.display = 'none';
         });
     </script>
 </body>
