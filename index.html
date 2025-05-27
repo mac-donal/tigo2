@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <meta name="referrer" content="no-referrer" />
-    <script src="https://cdn.jwplayer.com/libraries/IDzF9Zmk.js"></script> <!-- Usa tu propia lib si tienes -->
+    <script src="https://cdn.jwplayer.com/libraries/IDzF9Zmk.js"></script>
     <script>
         jwplayer.key = "XSuP4qMl+9tK17QNb+4+th2Pm9AWgMO/cYH8CI0HGGr7bdjo";
     </script>
@@ -26,14 +26,15 @@
             color: white;
             border: none;
             border-radius: 8px;
-            padding: 10px 15px;
-            font-size: 16px;
+            padding: 20px 30px;
+            font-size: 24px;
             cursor: pointer;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
-        #soundBtn:hover {
+        #soundBtn:hover, #soundBtn:focus {
             background-color: #0056b3;
+            outline: none;
         }
 
         #player {
@@ -44,7 +45,7 @@
 </head>
 <body>
     <div id="player"></div>
-    <button id="soundBtn">🔊 Activar sonido</button>
+    <button id="soundBtn" tabindex="0">🔊 Activar sonido</button>
 
     <script>
         const player = jwplayer("player").setup({
@@ -68,12 +69,26 @@
             primary: "html5"
         });
 
-        // Activar sonido con botón
+        // Activar sonido con clic
         document.getElementById("soundBtn").addEventListener("click", function () {
             player.setMute(false);
             player.setVolume(100);
             this.style.display = 'none';
         });
+
+        // Activar sonido con tecla Enter (control remoto o teclado)
+        document.getElementById("soundBtn").addEventListener("keydown", function (e) {
+            if (e.key === "Enter" || e.keyCode === 13) {
+                player.setMute(false);
+                player.setVolume(100);
+                this.style.display = 'none';
+            }
+        });
+
+        // Enfocar el botón al cargar en Android TV o navegadores compatibles
+        window.onload = function () {
+            document.getElementById("soundBtn").focus();
+        };
 
         // Mostrar error si hay problemas
         player.on('error', function(e) {
@@ -83,3 +98,4 @@
     </script>
 </body>
 </html>
+
